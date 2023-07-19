@@ -8,13 +8,19 @@ namespace Masa.Blazor.Pro.Wpf.Services
     {
         public async Task<T> ReadJsonAsync<T>(string baseUri)
         {
-            using var reader = new StreamReader($"wwwroot/{baseUri}");
+            string uri = $"wwwroot/{baseUri}";
+            if (!File.Exists(uri))
+            {
+                throw new("not find json");
+            }
+
+            using var reader = new StreamReader(uri);
             var contents = await reader.ReadToEndAsync().ConfigureAwait(false);
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-            return JsonSerializer.Deserialize<T>(contents, options) ?? throw new("not find weather.json");
+            return JsonSerializer.Deserialize<T>(contents, options) ?? throw new("not find json");
         }
     }
 }

@@ -14,8 +14,9 @@ namespace Masa.Blazor.Pro.WebAssembly.Services
 
         public async Task<T> ReadJsonAsync<T>(string baseUri)
         {
-            var result = await HttpClient.GetFromJsonAsync<T>($"_content/Masa.Blazor.Pro.Rcl/{baseUri}");
-            return result ?? throw new Exception("not find weather.json");
+            string uri = $"_content/Masa.Blazor.Pro.Rcl/{baseUri}";
+            var result = await HttpClient.GetFromJsonAsync<T>(uri);
+            return result ?? throw new Exception("not find json");
         }
     }
 }

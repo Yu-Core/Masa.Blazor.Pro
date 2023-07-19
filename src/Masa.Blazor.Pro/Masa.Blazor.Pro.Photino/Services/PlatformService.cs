@@ -7,18 +7,18 @@ namespace Masa.Blazor.Pro.Photino.Services
     {
         public async Task<T> ReadJsonAsync<T>(string baseUri)
         {
-            string path = $"wwwroot/{baseUri}";
-            if (!File.Exists(path))
+            string uri = $"wwwroot/{baseUri}";
+            if (!File.Exists(uri))
             {
-                path = $"wwwroot/_content/Masa.Blazor.Pro.Rcl/{baseUri}";
+                uri = $"wwwroot/_content/Masa.Blazor.Pro.Rcl/{baseUri}";
             }
 
-            var json = await File.ReadAllTextAsync(path);
+            var json = await File.ReadAllTextAsync(uri);
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-            return JsonSerializer.Deserialize<T>(json, options) ?? throw new("not find weather.json");
+            return JsonSerializer.Deserialize<T>(json, options) ?? throw new("not find json");
         }
     }
 }
